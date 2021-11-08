@@ -37,12 +37,8 @@ class StudentController extends Controller
 
     public function updateItem($id,request $request){
        
-
-        $student=student::where('id',$id)->first();
-        $student->name=$request->name;
-        $student->subject=$request->subject;
-        $student->mark=$request->mark;
-        $student->save();
+        $request=$request->except('_token');
+        $student=student::where('id',$id)->update($request);
         $students=student::get();
         return view('display',['students'=>$students]);
      }
