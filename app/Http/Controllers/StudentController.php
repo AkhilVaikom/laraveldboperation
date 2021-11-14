@@ -13,22 +13,28 @@ class StudentController extends Controller
     }
 
     public function addPost(request $request){
+        $validated = $request->validate([
+            'name' => 'required|unique:students|min:2|max:255|regex:/^[a-zA-Z]+$/u',
+            'subject' => 'required',
+            'mark' => 'required',
+        ]);
 
        student::create($request->all());
-       $students=student::get();
-       return view('display',['students'=>$students]);
+       $students=student::paginate(4);
+       return view('index',['students'=>$students]);
     }
 
-    public function display(request $request)
+   
+    public function index(request $request)
     {
-        $students=student::get();
-       return view('display',['students'=>$students]);
+        $students=student::paginate(4);
+       return view('index',['students'=>$students]);
     }
 
     public function deleteItem($id){
         student::where('id',$id)->delete();
-        $students=student::get();
-        return view('display',['students'=>$students]);
+        $students=student::paginate(4);
+        return view('index',['students'=>$students]);
     }
     public function edit($id){
         $student=student::find($id);
@@ -39,8 +45,8 @@ class StudentController extends Controller
        
         $request=$request->except('_token');
         $student=student::where('id',$id)->update($request);
-        $students=student::get();
-        return view('display',['students'=>$students]);
+        $students=student::paginate(4);
+        return view('index',['students'=>$students]);
      }
 
     //

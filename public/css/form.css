@@ -1,3 +1,13 @@
 .main-body{
     background-color: rgb(228, 241, 237);
 }
+
+
+
+.div-center{
+    width: 90%;
+    float:left;
+}
+
+body {background-color: rgb(237, 243, 253);
+    margin:0;padding:0;}
