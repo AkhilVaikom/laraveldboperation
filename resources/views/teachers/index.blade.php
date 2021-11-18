@@ -42,7 +42,7 @@
   <tbody>
   @if(isset($teachers))
     @foreach($teachers as $teacher)
-    <tr class="table-secondary">
+    <tr class="table-secondary" id="row_{{$teacher->id}}">
     <td>{{$teacher->id}}</td>
     <td>{{$teacher->t_name}}</td>
     <td>{{$teacher->t_subject}}</td>
@@ -91,7 +91,7 @@ function destroy(id){
         
     })
     .done(function(msg){
-        alert("data saved");
+        $("#row_"+id).remove();
     });
 }
     
